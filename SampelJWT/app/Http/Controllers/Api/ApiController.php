@@ -79,8 +79,8 @@ class ApiController extends Controller
     // refresh api (GET), it will refresh the token 
     public function refreshToken()
     {
-        $newToken = auth()->refresh();
-        
+        $newToken = auth()->refresh(true, true);// force invalidate the old token
+
         return response()->json([
             "status" => true,
             'message' => "New Access Token Generated",
@@ -91,7 +91,7 @@ class ApiController extends Controller
     // logout api (GET), full log out and destroy the old token 
     public function logout()
     {
-        auth()->logout();
+        auth()->logout(true);// force invalidate the old token.
 
         return response()->json([
             "status" => true,
